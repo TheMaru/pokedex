@@ -7,10 +7,12 @@ import (
 	"strings"
 
 	"github.com/TheMaru/pokedexcli/internal/pokeapi"
+	"github.com/TheMaru/pokedexcli/internal/pokecache"
 )
 
 type config struct {
 	pokeapiClient    pokeapi.Client
+	pokeapiCache     *pokecache.Cache
 	nextLocationsURL *string
 	prevLocationsURL *string
 }

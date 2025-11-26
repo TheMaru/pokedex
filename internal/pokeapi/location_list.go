@@ -3,8 +3,6 @@ package pokeapi
 import (
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 )
 
 func (c *Client) GetLocationAreas(pageURL *string) (LocationAreasPage, error) {
@@ -13,25 +11,9 @@ func (c *Client) GetLocationAreas(pageURL *string) (LocationAreasPage, error) {
 		url = *pageURL
 	}
 
-	req, err := http.NewRequest("GET", url, nil)
+	body, err := c.doRequest(url)
 	if err != nil {
 		return LocationAreasPage{}, err
-	}
-
-	res, err := c.httpClient.Do(req)
-	if err != nil {
-		return LocationAreasPage{}, fmt.Errorf("error making request: %w", err)
-	}
-	defer res.Body.Close()
-
-	if res.StatusCode != http.StatusOK {
-		body, _ := io.ReadAll(io.LimitReader(res.Body, 1024))
-		return LocationAreasPage{}, fmt.Errorf("request unsuccessfull with status code: %d and\nbody:\n%s", res.StatusCode, body)
-	}
-
-	body, err := io.ReadAll(res.Body)
-	if err != nil {
-		return LocationAreasPage{}, fmt.Errorf("reading of body failed with err: %w", err)
 	}
 
 	var data LocationAreasPage
