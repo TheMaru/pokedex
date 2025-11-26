@@ -15,6 +15,7 @@ type config struct {
 	pokeapiCache     *pokecache.Cache
 	nextLocationsURL *string
 	prevLocationsURL *string
+	caughtPokemon    map[string]pokeapi.Pokemon
 }
 
 type cliCommand struct {
@@ -71,6 +72,11 @@ func getCommands() map[string]cliCommand {
 			name:        "explore",
 			description: "Display pokemon of a given location",
 			callback:    commandExplore,
+		},
+		"catch": {
+			name:        "catch",
+			description: "Try to catch a pokemon",
+			callback:    commandCatch,
 		},
 		"exit": {
 			name:        "exit",
