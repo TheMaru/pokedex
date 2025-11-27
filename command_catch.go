@@ -25,6 +25,7 @@ func commandCatch(cfg *config, arguments ...string) error {
 
 	if randPercent < catchChance {
 		fmt.Printf("%s was caught!\n", pokemonName)
+		fmt.Println("You may now inspect it with the inspect command")
 		_, exists := cfg.caughtPokemon[pokemonName]
 		if !exists {
 			cfg.caughtPokemon[pokemonName] = pokemonData
